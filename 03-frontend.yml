@@ -10,11 +10,11 @@
 
     - name: Read all content from default nginx dir
       find:
-        paths: /usr/share/nginx/html
+        paths: /usr/share/nginx/html/
         recurse: true
         hidden: true
         file_type: any
-        register: dir_contents
+      register: dir_contents
 
     - name: Remove the contents
       file:
