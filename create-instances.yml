@@ -1,5 +1,5 @@
 ---
-- name: Create EC2 instance for roboshop project
+- name: Create EC2 instance for expence project
   hosts: localhost
   connection: local
   gather_facts: false
@@ -24,7 +24,7 @@
     - name: Create Common Security Group
       amazon.aws.ec2_security_group:
         name: expense_common
-        description: "Common SG for RoboShop"
+        description: "Common SG for expence"
         region: "{{ aws_region }}"
         rules:
           - proto: tcp
@@ -88,14 +88,14 @@
     - name: Delete EC2 Instances
       amazon.aws.ec2_instance:
         state: absent
-        name: "roboshop-{{ item.name }}"
+        name: "expence-{{ item.name }}"
         region: "{{ aws_region }}"
       loop: "{{ instances }}" 
       when: action == "delete"
 
     - name: Delete Instance Specific Security Groups
       amazon.aws.ec2_security_group:
-        name: "roboshop-{{ item.name }}"
+        name: "expence-{{ item.name }}"
         region: "{{ aws_region }}"
         state: absent
       loop: "{{ instances }}"
@@ -103,7 +103,7 @@
     
     - name: Delete Common Security Group
       amazon.aws.ec2_security_group:
-        name: roboshop_common
+        name: expence_common
         region: "{{ aws_region }}"
         state: absent
       when: action == "delete"
