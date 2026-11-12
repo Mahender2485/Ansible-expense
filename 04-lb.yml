@@ -2,7 +2,7 @@
 - name: Install nginx and config nginx
   hosts: lb
   become: true
-  task:
+  tasks:
 
     - name: Install nginx
       package:
