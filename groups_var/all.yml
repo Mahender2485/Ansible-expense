@@ -4,3 +4,5 @@ mysql_password: ExpenseApp@1
 mysql_host: mysql.mahender.org
 expense_db_user: expense
 expense_db_user_password: ExpenseApp@1
+backend_host: backend.mahender.org
+frontend_host: frontend.mahender.org

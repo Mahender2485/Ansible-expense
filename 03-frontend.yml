@@ -1,0 +1,47 @@
+---
+- name:
+  hosts: frontend
+  become: true
+  tasks:
+
+    - name: Install nginx
+      package:
+        name: nginx
+
+    - name: Read all content from default nginx dir
+      find:
+        paths: /usr/share/nginx/html
+        recurse: true
+        hidden: true
+        file_type: any
+        register: dir_contents
+
+    - name: Remove the contents
+      file:
+        name: "{{ item.path }}"
+        state: absent
+      loop:
+        "{{ dir_contents.file }}"
+
+    - name: Download frontend application
+      get_url:
+        url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v5.tar.gz
+        dest: /tmp/frontend.tar.gz
+
+    - name: Extract files directly into the Nginx web
+      unarchive:
+        src: /tmp/frontend.tar.gz
+        dest: /usr/share/nginx/html
+        remote_src: yes
+
+    - name: Configure Nginx Reverse Proxy
+      template:
+        src: expense-conf.j2
+        dest: /etc/nginx/default.d/expense.conf
+
+    - name: start and enable nginx
+      systemd_service:
+        name: nginx
+        daemon_reload: true
+        state: restarted
+        enabled: true

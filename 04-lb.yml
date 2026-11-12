@@ -1,0 +1,27 @@
+---
+- name: Install nginx and config nginx
+  hosts: lb
+  become: true
+  task:
+
+    - name: Install nginx
+      package:
+        - name: nginx
+          state: present
+
+    - name: Remove the default Nginx config 
+      file:
+        path: /etc/nginx/nginx.conf
+        state: absent
+    
+    - name: copy the lb config file
+      file:
+        src: lb-conf.j2
+        dest: /etc/nginx/nginx.conf
+
+    - name: start and enable the services
+      systemd_service:
+        name: nginx
+        daemon_reload: true
+        state: restarted
+        enabled: true

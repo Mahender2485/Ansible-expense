@@ -65,3 +65,10 @@
 
     - name: Load Database Schema
       shell: mysql -h "{{ mysql_host }}" -u root -p{{ expense_db_user_password }} < /app/schema/backend.sql
+
+    - name: start backend services
+      systemd_service:
+        name: backend
+        daemon_reload: true
+        stste: restsrted
+        enabled: true
