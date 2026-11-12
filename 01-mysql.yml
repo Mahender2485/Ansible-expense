@@ -12,7 +12,7 @@
       systemd_service:
         name: mysqld
         daemon_reload: true
-        state: restart
+        state: restarted
         enabled: true
 
     - name: Set the root password
