@@ -8,23 +8,23 @@
       package:
         name: nginx
 
-    - name: Read all content from default nginx dir
-      find:
+    - name: Find all contents inside the directory
+      ansible.builtin.find:
         paths: /usr/share/nginx/html/
         recurse: true
         hidden: true
         file_type: any
-      register: dir_contents
+      register: directory_contents
 
-    - name: Print the dir contents
+    - name: print directory content
       debug:
-        msg: "{{ dir_contents }}"
-    - name: Remove the contents
-      file:
-        name: "{{ item.path }}"
+        msg: "{{ directory_contents }}"
+
+    - name: Delete the discovered contents
+      ansible.builtin.file:
+        path: "{{ item.path }}"
         state: absent
-      loop:
-        "{{ dir_contents.files }}"
+      loop: "{{ directory_contents.files }}"
 
     - name: Download frontend application
       get_url:
