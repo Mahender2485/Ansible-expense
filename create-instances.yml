@@ -1,6 +1,6 @@
 ---
 - name: Create EC2 instance for roboshop project
-  hosts: local
+  hosts: localhost
   connection: local
   gather_facts: false
 
