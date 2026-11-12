@@ -16,12 +16,15 @@
         file_type: any
       register: dir_contents
 
+    - name: Print the dir contents
+      debug:
+        msg: "{{ dir_contents }}"
     - name: Remove the contents
       file:
         name: "{{ item.path }}"
         state: absent
       loop:
-        "{{ dir_contents.file }}"
+        "{{ dir_contents.files }}"
 
     - name: Download frontend application
       get_url:
