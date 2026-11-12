@@ -1,0 +1,19 @@
+---
+- name: Install and Configure mysql
+  hosts: mysql
+  become: true
+  tasks:
+    - name: Install mysql server
+      package:
+        name: mysql-server
+        state: present
+
+    - name: enable and start mysql
+      systemd_service:
+        name: mysqld
+        daemon_reload: true
+        state: restart
+        enabled: true
+
+    - name: Set the root password
+      command: mysql_secure_installation --set-root-pass "{{ mysql_password }}"

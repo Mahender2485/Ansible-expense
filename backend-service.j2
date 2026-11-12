@@ -1,0 +1,18 @@
+[Unit]
+Description=Expense Backend Service
+After=network.target
+
+[Service]
+User=expense
+Environment=DB_HOST={{ mysql_host }}
+Environment=DB_USER={{ expense_db_user }}
+Environment=DB_PWD={{ expense_db_user_password }}
+Environment=DB_DATABASE=transactions
+Environment=ADMIN_TOKEN=admin123
+ExecStart=/bin/node /app/index.js
+SyslogIdentifier=backend
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
