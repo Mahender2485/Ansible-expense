@@ -70,5 +70,5 @@
       systemd_service:
         name: backend
         daemon_reload: true
-        stste: restsrted
+        state: restsrted
         enabled: true
