@@ -23,7 +23,7 @@
   tasks:
     - name: Create Common Security Group
       amazon.aws.ec2_security_group:
-        name: roboshop_common
+        name: expense_common
         description: "Common SG for RoboShop"
         region: "{{ aws_region }}"
         rules:
@@ -51,14 +51,14 @@
     
     - name: Create EC2 Instances # Create EC2 instances for all the services
       amazon.aws.ec2_instance:
-        name: "roboshop-{{ item.name }}"
+        name: "expence-{{ item.name }}"
         state: running
         instance_type: "{{ instance_type }}"
         image_id: "{{ ami_id }}"
         region: "{{ aws_region }}"
         security_groups:
-          - roboshop_common
-          - "roboshop-{{ item.name }}"
+          - expence_common
+          - "expence-{{ item.name }}"
         wait: true
       loop: "{{ instances }}"
       when: action == "create"
