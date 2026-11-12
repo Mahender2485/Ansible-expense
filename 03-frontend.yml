@@ -7,6 +7,7 @@
     - name: Install nginx
       package:
         name: nginx
+        state: present
 
     - name: Find all contents inside the directory
       ansible.builtin.find:
