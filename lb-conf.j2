@@ -34,7 +34,7 @@ http {
     # 502 demo: stop nginx on the frontend EC2 → LB cannot reach upstream → 502
     # 504 demo: proxy_read_timeout fires before frontend responds → 504
     upstream my_frontend_cluster {
-        server 172.31.23.99:80;
+        server {{ frontend_host }}:80;
     }
 
     server {
