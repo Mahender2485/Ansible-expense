@@ -1,5 +1,5 @@
 ---
-- name:
+- name: Install and configure frontend
   hosts: frontend
   become: true
   tasks:
