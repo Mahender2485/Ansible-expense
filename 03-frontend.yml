@@ -9,6 +9,13 @@
         name: nginx
         state: present
 
+    - name: start and enable nginx
+      systemd_service:
+        name: nginx
+        daemon_reload: true
+        state: restarted
+        enabled: true
+
     - name: Find all contents inside the directory
       ansible.builtin.find:
         paths: /usr/share/nginx/html/
@@ -42,10 +49,3 @@
       template:
         src: expense-conf.j2
         dest: /etc/nginx/default.d/expense.conf
-
-    - name: start and enable nginx
-      systemd_service:
-        name: nginx
-        daemon_reload: true
-        state: restarted
-        enabled: true
