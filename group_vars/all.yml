@@ -1,8 +1,8 @@
 ansible_user: ec2-user
-ansible_password: DevOps321
-mysql_password: ExpenseApp@1
+ansible_password: xxxxxxxxxxx
+mysql_password: xxxxxxxxx
 mysql_host: mysql.mahender.org
 expense_db_user: expense
-expense_db_user_password: ExpenseApp@1
+expense_db_user_password: xxxxxxxxx
 backend_host: backend.mahender.org
 frontend_host: frontend.mahender.org
